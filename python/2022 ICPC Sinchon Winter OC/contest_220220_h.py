@@ -1,0 +1,1 @@
+[print(1, end = ' ') for _ in range(int(input()))]
