@@ -10,10 +10,6 @@ dx = [0,0,1,-1]
 dy = [1,-1,0,0]
 res = 0
 
-print(r, c, k)
-print(arr)
-print(visited)
-
 def solve(x, y, length):
     global r, c, k, visited, res, dx, dy
     if x == c-1 and y == 0:
