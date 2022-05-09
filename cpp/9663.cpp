@@ -1,31 +1,37 @@
 #include <bits/stdc++.h>
-#define FASTIO ios::sync_with_stdio(false); cin.tie(0); cout.tie(0);
+#define FASTIO                   \
+    ios::sync_with_stdio(false); \
+    cin.tie(0);                  \
+    cout.tie(0);
 using namespace std;
 
 int n, ans;
 bool check1[14], check2[27], check3[27];
 
-void solve(int idx) {
-    if (idx == n) {
+void solve(int idx)
+{
+    if (idx == n)
+    {
         ans++;
         return;
     }
 
-    for (int i=0; i<n; i++) {
-        if (check1[i] || check2[idx+i] || check3[idx-i+n-1] )
+    for (int i = 0; i < n; i++)
+    {
+        if (check1[i] || check2[idx + i] || check3[idx - i + n - 1])
             continue;
 
         check1[i] = true;
-        check2[idx+i] = true;
-        check3[idx-i+n-1] = true;
+        check2[idx + i] = true;
+        check3[idx - i + n - 1] = true;
 
         //퀸 배치 - 체크 배열 수정
 
-        solve(idx+1);
+        solve(idx + 1);
 
         check1[i] = false;
-        check2[idx+i] = false;
-        check3[idx-i+n-1] = false;
+        check2[idx + i] = false;
+        check3[idx - i + n - 1] = false;
 
         //퀸 배치 원상태로 돌리기 - 체크 배열 수정
     }
