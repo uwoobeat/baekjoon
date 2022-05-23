@@ -25,7 +25,7 @@ int main()
     int n;
     cin >> n;
     fill(dp, dp + n + 1, -1); // dp+n+1까지면 dp+n까지만 초기화
-    dp[0] = 0, dp[1] = 1;
+    dp[0] = 0, dp[1] = 1; // 0 1 -1 -1 -1...
 
     cout << fibo(n);
 
