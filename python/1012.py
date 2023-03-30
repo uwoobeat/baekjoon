@@ -1,36 +1,27 @@
-import sys
-sys.setrecursionlimit(10**6)
-
-input = lambda: sys.stdin.readline().rstrip()
-pair = lambda : map(int, input().split())
-
-t = int(input())
-dx = [0, 0, 1, -1]
-dy = [1, -1, 0, 0]
-
-def dfs(x, y):
-    visited[y][x] = 1
-    for i in range(4):
-        newx = x + dx[i]
-        newy = y + dy[i]
-        if 0 <= newx <= m-1 and 0 <= newy <= n-1:
-            if arr[newy][newx] and not visited[newy][newx]:
-                dfs(newx, newy)
-
-for _ in range(t):
-    m, n, k = pair()
-    arr = [[0] * m for _ in range(n)]
-    visited = [[0] * m for _ in range(n)]
-    cnt = 0
-
-    for _ in range(k):
-        pos = list(pair())
-        arr[pos[1]][pos[0]] = 1
-
-    for y in range(n):
-        for x in range(m):
-            if arr[y][x] and not visited[y][x]:
-                dfs(x, y)
-                cnt += 1
+SELECT 
+    A.CAR_ID, 
+    A.CAR_TYPE, 
+    ROUND(A.DAILY_FEE * 30 * (100 - C.DISCOUNT_RATE) / 100, 0) AS FEE
+FROM
+    CAR_RENTAL_COMPANY_RENTAL_HISTORY AS B
+INNER JOIN
+    CAR_RENTAL_COMPANY_CAR AS A
+ON
+    A.CAR_ID = B.CAR_ID
+INNER JOIN
+    CAR_RENTAL_COMPANY_DISCOUNT_PLAN AS C
+ON
+    A.CAR_TYPE = C.CAR_TYPE
+WHERE
+    (B.START_DATE < '2022-12-01' AND B.END_DATE > '2022-11-01')
+AND
+    (C.DURATION_TYPE = '30일 이상')
+GROUP BY
+    B.CAR_ID
+HAVING
+    (CAR_TYPE = '세단' OR CAR_TYPE = 'SUV')
+AND
+    (FEE >= 500000 AND FEE < 2000000)
+ORDER BY
+    FEE DESC, CAR_TYPE, CAR_ID DESC
     
-    print(cnt)
